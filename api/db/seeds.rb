@@ -11,7 +11,7 @@
 def add_person!(name, email)
   first_name, last_name = name.split(' ')
   attrs = { email_address: email, first_name: first_name, last_name: last_name }
-  if (found = Person.where(attrs.slice(:email)).or(Person.where(attrs.slice(:first_name, :last_name))).first)
+  if (found = Person.where(attrs.slice(:email_address)).or(Person.where(attrs.slice(:first_name, :last_name))).first)
     found.update! **attrs
   else
     Person.create! **attrs
