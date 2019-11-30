@@ -1,0 +1,109 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - Rakefile
+    - config.ru
+    - bin/*
+    - db/**/*.rb
+    - config/**/*.rb
+    - test/**/*.rb
+  TargetRubyVersion: 2.6.5
+
+Rails:
+  Enabled: true
+
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - lib/scripts/*.rb
+  IgnoredPatterns:
+    - '(\A|\s)#'
+    - '\A\s{2,}scope'
+
+Metrics/BlockLength:
+  ExcludedMethods:
+    - class_methods
+    - namespace
+    - draw
+    - context
+    - xcontext
+    - describe
+    - xdescribe
+    - shared_examples
+    - shared_examples_for
+    - shared_context
+    - define
+    - factory
+    - include_context
+    - let
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/PerceivedComplexity:
+  Max: 8
+
+Metrics/ClassLength:
+  Max: 1500
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+
+Layout/DotPosition:
+  EnforcedStyle: leading
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: same_line
+
+Layout/CaseIndentation:
+  EnforcedStyle: end
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
