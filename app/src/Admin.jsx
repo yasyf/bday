@@ -24,6 +24,7 @@ function Admin() {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Status</TableCell>
+            <TableCell>Flight</TableCell>
             <TableCell>Email Status</TableCell>
             <TableCell>Reservation Status</TableCell>
             <TableCell>Message Status</TableCell>
@@ -45,6 +46,7 @@ function Admin() {
                   {firstName} {lastName}
                 </TableCell>
                 <TableCell>{status}</TableCell>
+                <TableCell>{reservation.flightNumber}</TableCell>
                 <TableCell>{email.status}</TableCell>
                 <TableCell>{reservation.status}</TableCell>
                 <TableCell>{message.status}</TableCell>
