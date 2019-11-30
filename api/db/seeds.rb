@@ -19,3 +19,4 @@ def add_person!(name, email)
 end
 
 add_person! 'Yasyf Mohamedali', 'yasyfm@gmail.com'
+add_person! 'Katie Ho', 'ksho@fb.com'
