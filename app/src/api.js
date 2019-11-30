@@ -15,5 +15,6 @@ client.interceptors.response.use(({ data }) => camelCaseKeys(data));
 export default {
   getPeople: () => client.get("/persons"),
   findPerson: email =>
-    client.post("/persons/find", { person: { emailAddress: email } })
+    client.post("/persons/find", { person: { emailAddress: email } }),
+  updatePerson: (id, person) => client.patch(`/persons/${id}`, { person })
 };

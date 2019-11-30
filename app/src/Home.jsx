@@ -3,6 +3,7 @@ import queryString from "query-string";
 
 import Login from "./Login";
 import Landing from "./Landing";
+import RSVP from "./RSVP";
 import api from "./api";
 
 function Home({ location }) {
@@ -23,8 +24,13 @@ function Home({ location }) {
     fetchData();
   }, [email]);
 
-  if (!person) return <Login email={email} setEmail={setEmail} />;
-  return <Landing person={person} />;
+  if (!person) {
+    return <Login email={email} setEmail={setEmail} />;
+  }
+  if (["committed", "confirmed", "rejected"].includes(person.status)) {
+    return <RSVP person={person} setPerson={setPerson} />;
+  }
+  return <Landing person={person} setPerson={setPerson} />;
 }
 
 export default Home;

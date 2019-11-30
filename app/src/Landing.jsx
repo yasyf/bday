@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Plx from "react-plx";
-import {
-  makeStyles,
-  Grid,
-  Card,
-  CardContent,
-  TextField,
-  Typography,
-  Paper
-} from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 
 import ScrollDown from "./ScrollDown";
 import RSVP from "./RSVP";
@@ -105,7 +97,7 @@ const Heading = ({ children, heading = 2 }) => {
   );
 };
 
-function Landing({ person }) {
+function Landing({ person, setPerson }) {
   const classes = useStyles();
   return (
     <div>
@@ -115,9 +107,11 @@ function Landing({ person }) {
       >
         <ScrollDown />
       </Plx>
-      <Heading heading={2}>Hi, {person.firstName}!</Heading>
       <Heading heading={2}>
-        I'm trying something new here so bear with me here...
+        <p className={classes.spaceBelow}>Hi, {person.firstName}!</p>
+        <p className={classes.noMargin}>
+          I'm trying something new here so bear with me...
+        </p>
       </Heading>
       <Heading heading={3}>
         <p className={classes.spaceBelow}>
@@ -215,7 +209,7 @@ function Landing({ person }) {
       <br />
       <br />
       <div className={classes.rsvp}>
-        <RSVP person={person} />
+        <RSVP person={person} setPerson={setPerson} />
       </div>
     </div>
   );
