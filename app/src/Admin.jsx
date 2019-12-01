@@ -27,7 +27,7 @@ function Admin() {
 
   const copyMessage = id => {
     const { emailAddress } = find(people, { id });
-    const message = `Hey! Just shot an an email to ${emailAddress} re: my birthday :) Take a look when you get a chance!`;
+    const message = `Hey! Just shot an an email to ${emailAddress} about my birthday :) Take a look when you get a chance!`;
     navigator.permissions
       .query({ name: "clipboard-write" })
       .then(() => navigator.clipboard.writeText(message));
