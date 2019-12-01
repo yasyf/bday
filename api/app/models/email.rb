@@ -21,7 +21,7 @@ class Email < ApplicationRecord
   end
 
   def subject
-    "Yasyf's 25th Birthday"
+    "#{person.first_name}: Yasyf's 25th Birthday"
   end
 
   def to_markdown
