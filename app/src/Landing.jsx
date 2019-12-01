@@ -2,6 +2,7 @@ import React from "react";
 import Plx from "react-plx";
 import { makeStyles, Typography } from "@material-ui/core";
 
+import { isMobile } from "./util";
 import ScrollDown from "./ScrollDown";
 import RSVP from "./RSVP";
 
@@ -36,15 +37,28 @@ const headingConfig = [
     duration: "20vh",
     properties: [
       {
-        startValue: -50,
-        endValue: 0,
-        unit: "vh",
-        property: "translateX"
-      },
-      {
         startValue: 0,
         endValue: 1,
         property: "opacity"
+      },
+      {
+        startValue: 0,
+        endValue: -50,
+        unit: "vh",
+        property: "translateY"
+      }
+    ]
+  },
+  {
+    start: "self",
+    startOffset: "20vh",
+    duration: "50vh",
+    properties: [
+      {
+        startValue: -50,
+        endValue: -10,
+        unit: "vh",
+        property: "translateY"
       }
     ]
   },
@@ -53,12 +67,6 @@ const headingConfig = [
     startOffset: "80vh",
     duration: "20vh",
     properties: [
-      {
-        startValue: 0,
-        endValue: -50,
-        unit: "vh",
-        property: "translateX"
-      },
       {
         startValue: 1,
         endValue: 0,
@@ -82,12 +90,17 @@ const scrollDownConfig = start => [
   }
 ];
 
-const Heading = ({ children, heading = 2 }) => {
+const Heading = ({ children, config = headingConfig, heading = 2 }) => {
   const classes = useStyles();
   return (
-    <Plx parallaxData={headingConfig} className={classes.section}>
+    <Plx
+      className="StickyText"
+      parallaxData={config}
+      className={classes.section}
+      disabled={isMobile()}
+    >
       <Typography
-        variant={`h${heading}`}
+        variant={`h${isMobile() ? Math.max(heading, 4) : heading}`}
         component="div"
         className={classes.sectionTypography}
       >
@@ -107,7 +120,7 @@ function Landing({ person, setPerson }) {
       >
         <ScrollDown />
       </Plx>
-      <Heading heading={2}>
+      <Heading heading={2} config={headingConfig.slice(2)}>
         <p className={classes.spaceBelow}>Hi, {person.firstName}!</p>
         <p className={classes.noMargin}>
           I'm trying something new here so bear with me...

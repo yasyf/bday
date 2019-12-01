@@ -27,3 +27,5 @@ export const camelCaseKeys = (obj: {}): {} =>
 
 export const snakeCaseKeys = (obj: {}): {} =>
   deeplyMapObjects(mapKeys)(obj, (val, key) => snakeCase(key));
+
+export const isMobile = () => window.innerWidth <= 500; // super hacky, I know
