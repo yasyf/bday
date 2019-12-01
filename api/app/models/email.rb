@@ -27,10 +27,11 @@ class Email < ApplicationRecord
   def to_markdown
     [
       "### Hey #{person.first_name}!",
-      "This year for my birthday, I'm trying something a little different." \
+      "This year for my birthday, I'm trying something a little different.",
       " Instead of throwing a big party with a ton of people (although we might still do that)," \
-      " I'm bringing together a small handful of my closest friends for an intimate gathering.",
-      "I'd love for you to join me! You can find all the details [here](#{tracked_link}) (the site is best viewed on desktop).",
+      " I'm bringing together a small group of my closest friends for an intimate gathering.",
+      "I'd love for you to join me!",
+      "**You can find all the details [here](#{tracked_link}) (best viewed on desktop).**",
       "![](#{tracked_image})"
     ].join("\n\n")
   end
@@ -62,11 +63,11 @@ class Email < ApplicationRecord
   private
 
   def tracked_link
-    Rails.application.routes.url_helpers.tracking_link_person_url(person: person)
+    Rails.application.routes.url_helpers.tracking_link_person_url(id: person_id)
   end
 
   def tracked_image
-    Rails.application.routes.url_helpers.tracking_image_person_url(person: person)
+    Rails.application.routes.url_helpers.tracking_image_person_url(id: person_id)
   end
 
   def send_draft!
@@ -100,6 +101,6 @@ class Email < ApplicationRecord
   end
 
   def mail
-    @mail ||= Mail.new(subject: title, to: ENV['DRAFT_TO'])
+    @mail ||= Mail.new(subject: subject, to: person.email_address)
   end
 end

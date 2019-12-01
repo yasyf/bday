@@ -32,7 +32,7 @@ class PersonsController < ApplicationController
 
   def tracking_link
     person.email.update! status: :clicked if Email.statuses[person.email.status] <= Email.statuses[:clicked]
-    redirect_to ENV['FRONTEND_URL']
+    redirect_to "#{ENV['FRONTEND_URL']}?email=#{person.email}"
   end
 
   private
