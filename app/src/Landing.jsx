@@ -205,18 +205,38 @@ function Landing({ person, setPerson }) {
         </p>
         <p className={classes.spaceBelow}>Overjoyed! 😍 Elated! 🤗</p>
         <p className={classes.noMargin}>
-          Please book your flights, and confirm with me no later than Jan. 1st.
+          Please book your flights, and RSVP using the form at the bottom of
+          this page no later than Jan. 1st.
         </p>
       </Heading>
 
       <Heading heading={3}>
         <p className={classes.spaceBelow}>
+          You should plan on flying into Honolulu on either Jan 31st or Feb 1st.
+        </p>
+
+        <p className={classes.spaceBelow}>
+          I'm flying in on the 31st (AS 743), and leaving on the 3rd (AS 710).
+        </p>
+
+        <p className={classes.spaceBelow}>
+          I'll handle accomodation, so you just need to get yourself to the
+          island!
+        </p>
+
+        <p className={classes.spaceBelow}>
           Southwest and Alaska both have some great itineraries for that weekend
           out of SF & Seattle.
         </p>
+      </Heading>
 
-        <p className={classes.noMargin}>
-          You can use the form at the bottom of this page to RSVP.
+      <Heading heading={2}>
+        <p className={classes.spaceBelow}>
+          Let me know if you have any questions,
+        </p>
+
+        <p className={classes.spaceBelow}>
+          and thanks for indulging in my insanity!
         </p>
       </Heading>
       <br />
