@@ -20,6 +20,10 @@ class Email < ApplicationRecord
     end
   end
 
+  def self.address(first_name, last_name, email)
+    "'#{first_name} #{last_name}' <#{email}>"
+  end
+
   def subject
     "#{person.first_name}: Yasyf's 25th Birthday (01/31 - 02/02)"
   end
@@ -43,10 +47,14 @@ class Email < ApplicationRecord
   end
 
   def to_email
-    mail.tap do |m|
-      m.attachments[attachment_name] = attachment_body
+    Mail.new(
+      subject: subject,
+      to: self.class.address(person.first_name, person.last_name, person.email_address),
+      from: self.class.address('Yasyf', 'Mohamedali', ENV['DRAFT_OWNER']),
+    ).tap do |m|
       m.text_part = Mail::Part.new(body: to_markdown)
       m.html_part = Mail::Part.new(content_type: 'text/html; charset=UTF-8', body: to_html)
+      m.attachments[attachment_name] = { mime_type: 'text/calendar;method=REQUEST', content: Base64.encode64(attachment_body), encoding: 'base64' }
     end
   end
 
@@ -86,6 +94,7 @@ class Email < ApplicationRecord
       DTEND;VALUE=DATE:20200203
       SUMMARY:Yasyf's 25th Birthday
       URL:#{CGI.escape(tracked_link)}
+      ORGANIZER:MAILTO:#{ENV['DRAFT_OWNER']}
       DESCRIPTION:Join me for a weekend in Hawaii of fun\, food\, and friends!\\n\\nFull details here: #{tracked_link}
       LOCATION:Honolulu\, Hawaii
       END:VEVENT
@@ -129,9 +138,5 @@ class Email < ApplicationRecord
       upload_source: StringIO.new(to_email.to_s),
       content_type: 'message/rfc822',
     )
-  end
-
-  def mail
-    @mail ||= Mail.new(subject: subject, to: person.email_address)
   end
 end
