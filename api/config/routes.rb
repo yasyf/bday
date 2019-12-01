@@ -5,5 +5,9 @@ Rails.application.routes.draw do
     collection do
       post :find
     end
+    member do
+      get :tracking_image
+      get :tracking_link
+    end
   end
 end

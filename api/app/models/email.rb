@@ -7,6 +7,8 @@ class Email < ApplicationRecord
 
   enum status: { draft: 0, delivered: 1, opened: 2, clicked: 3 }
 
+  after_commit :save_or_send_draft!, on: [:create, :update]
+
   cattr_accessor :gmail_client do
     Google::Apis::GmailV1::GmailService.new.tap do |gmail|
       authorization = Google::Auth::DefaultCredentials.make_creds(
@@ -18,9 +20,20 @@ class Email < ApplicationRecord
     end
   end
 
-  def subject; end
+  def subject
+    "Yasyf's 25th Birthday"
+  end
 
-  def to_markdown; end
+  def to_markdown
+    [
+      "### Hey #{person.first_name}!",
+      "This year for my birthday, I'm trying something a little different." \
+      " Instead of throwing a big party with a ton of people (although we might still do that)," \
+      " I'm bringing together a small handful of my closest friends for an intimate gathering.",
+      "I'd love for you to join me! You can find all the details [here](#{tracked_link}) (the site is best viewed on desktop).",
+      "![](#{tracked_image})"
+    ].join("\n\n")
+  end
 
   def to_html(**kwargs)
     Kramdown::Document.new(to_markdown(**kwargs)).to_html.html_safe # rubocop:disable Rails/OutputSafety
@@ -47,6 +60,14 @@ class Email < ApplicationRecord
   end
 
   private
+
+  def tracked_link
+    Rails.application.routes.url_helpers.tracking_link_person_url(person: person)
+  end
+
+  def tracked_image
+    Rails.application.routes.url_helpers.tracking_image_person_url(person: person)
+  end
 
   def send_draft!
     return if draft?
