@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     member do
       get :invite_image
       get :invite_link
+      post :send_email
+      post :send_message
     end
   end
 end

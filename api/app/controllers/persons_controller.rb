@@ -15,7 +15,7 @@ class PersonsController < ApplicationController
     end
 
     if update_params[:flight_number].present?
-      person.reservation.update! flight_number: update_params[:flight_number]
+      person.reservation.update! flight_number: update_params[:flight_number], status: :confirmed
     end
 
     render json: person
@@ -33,6 +33,16 @@ class PersonsController < ApplicationController
   def invite_link
     person.email.update! status: :clicked if person.email.status.in? %w[delivered opened]
     redirect_to "#{ENV['FRONTEND_URL']}?email=#{person.email_address}"
+  end
+
+  def send_email
+    person.email.send!
+    render json: person
+  end
+
+  def send_message
+    person.message.update! status: :sent
+    render json: person
   end
 
   private

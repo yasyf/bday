@@ -7,7 +7,7 @@ class Email < ApplicationRecord
 
   enum status: { draft: 0, delivered: 1, opened: 2, clicked: 3 }
 
-  after_commit :save_or_send_draft!, on: [:create, :update]
+  after_commit :create_or_update_draft!, on: [:create, :update]
 
   cattr_accessor :gmail_client do
     Google::Apis::GmailV1::GmailService.new.tap do |gmail|
@@ -50,7 +50,8 @@ class Email < ApplicationRecord
     end
   end
 
-  def save_or_send_draft!
+  def create_or_update_draft!
+    return unless draft?
     if draft_id.present?
       begin
         update_draft!
