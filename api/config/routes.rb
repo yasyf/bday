@@ -6,8 +6,8 @@ Rails.application.routes.draw do
       post :find
     end
     member do
-      get :tracking_image
-      get :tracking_link
+      get :invite_image
+      get :invite_link
     end
   end
 end

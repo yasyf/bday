@@ -44,6 +44,7 @@ class Email < ApplicationRecord
 
   def to_email
     mail.tap do |m|
+      m.attachments[attachment_name] = attachment_body
       m.text_part = Mail::Part.new(body: to_markdown)
       m.html_part = Mail::Part.new(content_type: 'text/html; charset=UTF-8', body: to_html)
     end
@@ -68,12 +69,35 @@ class Email < ApplicationRecord
 
   private
 
+  def attachment_name
+    "Yasyf_25th_Birthday.ics"
+  end
+
+  def attachment_body
+    <<~ICAL
+      BEGIN:VCALENDAR
+      VERSION:2.0
+      PRODID:-//ical.marudot.com//iCal Event Maker
+      BEGIN:VEVENT
+      DTSTAMP:20191201T114957Z
+      UID:20191201T114957Z-401153972@marudot.com
+      DTSTART;VALUE=DATE:20200131
+      DTEND;VALUE=DATE:20200203
+      SUMMARY:Yasyf's 25th Birthday
+      URL:#{CGI.escape(tracked_link)}
+      DESCRIPTION:Join me for a weekend in Hawaii of fun\, food\, and friends!\\n\\nFull details here: #{tracked_link}
+      LOCATION:Honolulu\, Hawaii
+      END:VEVENT
+      END:VCALENDAR
+    ICAL
+  end
+
   def tracked_link
-    Rails.application.routes.url_helpers.tracking_link_person_url(id: person_id)
+    Rails.application.routes.url_helpers.invite_link_person_url(id: person_id)
   end
 
   def tracked_image
-    Rails.application.routes.url_helpers.tracking_image_person_url(id: person_id)
+    Rails.application.routes.url_helpers.invite_image_person_url(id: person_id)
   end
 
   def send_draft!

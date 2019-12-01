@@ -25,12 +25,12 @@ class PersonsController < ApplicationController
     render json: Person.where(**find_params.to_h.symbolize_keys).first
   end
 
-  def tracking_image
+  def invite_image
     person.email.update! status: :opened if person.email.status == 'delivered'
     render body: TRANSPARENT_GIF, content_type: 'image/gif'
   end
 
-  def tracking_link
+  def invite_link
     person.email.update! status: :clicked if person.email.status.in? %w[delivered opened]
     redirect_to "#{ENV['FRONTEND_URL']}?email=#{person.email_address}"
   end
