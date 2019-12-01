@@ -29,9 +29,10 @@ class Email < ApplicationRecord
       "### Hey #{person.first_name}!",
       "This year for my birthday, I'm trying something a little different.",
       " Instead of throwing a big party with a ton of people (although we might still do that)," \
-      " I'm bringing together a small group of my closest friends for an intimate gathering.",
+      " I'm bringing together a small group of my closest friends for an intimate gathering on the weekend of Feb 1st.",
       "I'd love for you to join me!",
       "**You can find all the details [here](#{tracked_link}) (best viewed on desktop).**",
+      "Cheers,\nYasyf",
       "![](#{tracked_image})"
     ].join("\n\n")
   end
@@ -57,6 +58,10 @@ class Email < ApplicationRecord
     else
       create_draft!
     end
+  end
+
+  def send!
+    update! status: :delivered
     send_draft!
   end
 
