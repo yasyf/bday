@@ -26,12 +26,12 @@ class PersonsController < ApplicationController
   end
 
   def tracking_image
-    person.email.update! status: :opened if Email.statuses[person.email.status] <= Email.statuses[:opened]
+    person.email.update! status: :opened if person.email.status == 'delivered'
     render body: TRANSPARENT_GIF, content_type: 'image/gif'
   end
 
   def tracking_link
-    person.email.update! status: :clicked if Email.statuses[person.email.status] <= Email.statuses[:clicked]
+    person.email.update! status: :clicked if person.email.status.in? %w[delivered opened]
     redirect_to "#{ENV['FRONTEND_URL']}?email=#{person.email_address}"
   end
 

@@ -32,7 +32,8 @@ class Email < ApplicationRecord
       " I'm bringing together a small group of my closest friends for an intimate gathering on the weekend of Feb 1st.",
       "I'd love for you to join me!",
       "**You can find all the details [here](#{tracked_link}) (best viewed on desktop).**",
-      "Cheers,\nYasyf",
+      "Cheers,",
+      "Yasyf",
       "![](#{tracked_image})"
     ].join("\n\n")
   end
