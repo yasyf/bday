@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 const headingConfig = [
   {
     start: "self",
-    duration: "20vh",
+    duration: "30vh",
     properties: [
       {
         startValue: 0,
@@ -51,7 +51,7 @@ const headingConfig = [
   },
   {
     start: "self",
-    startOffset: "20vh",
+    startOffset: "30vh",
     duration: "50vh",
     properties: [
       {
