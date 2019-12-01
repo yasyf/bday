@@ -73,7 +73,7 @@ function RSVP({ person: { id, status, reservation }, setPerson }) {
               alignItems="center"
               spacing={3}
             >
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Button
                   size="large"
                   variant={status === "rejected" ? "outlined" : "contained"}
@@ -83,7 +83,7 @@ function RSVP({ person: { id, status, reservation }, setPerson }) {
                   Yes
                 </Button>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Button
                   size="large"
                   variant={
@@ -123,12 +123,20 @@ function RSVP({ person: { id, status, reservation }, setPerson }) {
               What is your outbound flight number?
             </Typography>
             <br />
-            <TextField
-              label="Flight Number"
-              value={flightNumber}
-              onChange={e => setFlightNumber(e.target.value)}
-              helperText="e.g. AS 743"
-            />
+            <Grid
+              container
+              justify="center"
+              direction="row"
+              alignItems="center"
+              spacing={3}
+            >
+              <TextField
+                label="Flight Number"
+                value={flightNumber}
+                onChange={e => setFlightNumber(e.target.value)}
+                helperText="e.g. AS 743"
+              />
+            </Grid>
           </CardContent>
         </Card>
       </Grid>
