@@ -16,5 +16,7 @@ export default {
   getPeople: () => client.get("/persons"),
   findPerson: email =>
     client.post("/persons/find", { person: { emailAddress: email } }),
-  updatePerson: (id, person) => client.patch(`/persons/${id}`, { person })
+  updatePerson: (id, person) => client.patch(`/persons/${id}`, { person }),
+  sendEmail: id => client.post(`/persons/${id}/send_email`),
+  sendMessage: id => client.post(`/persons/${id}/send_message`)
 };
