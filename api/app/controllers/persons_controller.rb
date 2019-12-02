@@ -4,7 +4,7 @@ class PersonsController < ApplicationController
   TRANSPARENT_GIF = Base64.decode64('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
 
   def index
-    render json: Person.all
+    render json: Person.all.joins(:reservation).joins(:email).order('reservations.status': :desc, 'emails.status': :desc)
   end
 
   def update
